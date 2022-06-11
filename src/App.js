@@ -59,6 +59,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("This can take a while");
   const [showMessage, setShowMessage] = useState(false);
+  const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0) - 120;
 
   const container = {
     display: "flex",
@@ -70,6 +71,7 @@ function App() {
   };
   const title = { fontSize: "25px" };
   const nftsCotnainer = { display: "flex", flexWrap: "wrap", width: "270px" };
+  const footer = {position:'absolute',left:0,bottom:0,right:0,top:`${vh}px`};
 
   const handleMessage = (message) => {
     setMessage(message);
@@ -78,19 +80,16 @@ function App() {
 
   const handleGetNft = () => {
     try {
-      console.log('calling');
       setLoading(true);
       handleMessage("This can take a while");
-      fetch(`http://localhost:3001/nft?address=${address}`)
+      fetch(`http://localhost:4444/nft?address=${address}`)
         .then((response) => {
-          console.log('response', response);
           if (response.ok) {
             return response.json();
           }
           throw new Error("Something went wrong");
         })
         .then((data) => {
-          console.log("data", data);
           setNfts(data);
           setLoading(false);
           setShowMessage(false);
@@ -134,11 +133,12 @@ function App() {
         )}
         <div style={nftsCotnainer}>
           {loading ? <Spinner /> : ""}
-          {nfts.map((nft) => {
-            return <NFT src={nft.image} title={nft.title}></NFT>;
+          {nfts.map((nft,index) => {
+            return <NFT key={index} src={nft.image} title={nft.title}></NFT>;
           })}
         </div>
       </div>
+      <div className="flex justify-center align-center" style={footer}>by kintell33</div>
     </VechaiProvider>
   );
 }
