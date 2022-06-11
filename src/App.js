@@ -82,7 +82,7 @@ function App() {
     try {
       setLoading(true);
       handleMessage("This can take a while");
-      fetch(`http://localhost:4444/nft?address=${address}`)
+      fetch(`https://nftrinkebyapi.herokuapp.com/nft?address=${address}`)
         .then((response) => {
           if (response.ok) {
             return response.json();
