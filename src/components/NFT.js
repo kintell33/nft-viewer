@@ -1,14 +1,6 @@
 import { Image } from "@vechaiui/react";
-import { useState } from "react";
 
 export default function NFT({ metadata, title, description }) {
-  const [imageSrc, setImageSrc] = useState("");
-
-  const handleDiscover = (metadata) => {
-    setImageSrc(metadata.replace('ipfs://','https://ipfs.io/ipfs/'));
-    console.log('seted');
-  }
-
   return (
     <div className="flex justify-center flex-col items-center">
       <div>{title}</div>
